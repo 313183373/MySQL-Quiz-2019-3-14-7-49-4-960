@@ -1,0 +1,39 @@
+Practice1:
+SELECT * FROM `Employee` WHERE `name` LIKE '%n%' AND salary > 6000;
+
++----+----------+-----+--------+-----------+---------+
+| id | name     | age | gender | companyId | salary  |
++----+----------+-----+--------+-----------+---------+
+|  1 | xiaohong |  19 | female |         1 | 7000.00 |
+
++----+----------+-----+--------+-----------+---------+
+Practice2:
+SELECT `name`, `cname` FROM Employee JOIN (SELECT `companyId` AS cid, `companyName` AS cname, MAX(`salary`) AS maxSalary FROM Employee JOIN Company ON Company.`id` = Employee.`companyId` GROUP BY `companyId`) B ON `companyId` = `cid` AND `salary` = `maxSalary`;
+
+
++----------+---------+
+| name     | cname   |
++----------+---------+
+| xiaoming | baidu   |
+| xiaohong | alibaba |
+| xiaozhi  | tengxun |
++----------+---------+
+
+Practice 3:
+SELECT companyName, AVG(`salary`) AS avgSalary FROM `Employee` JOIN `Company` ON Employee.`companyId`= Company.`id` GROUP BY `companyId` ORDER BY avgSalary DESC LIMIT 1;
+
++-------------+-------------+
+| companyName | avgSalary   |
++-------------+-------------+
+| tengxun     | 8000.000000 |
++-------------+-------------+
+
+Practice 4:
+SELECT * FROM Employee JOIN (SELECT companyId AS cid, companyName AS cname, AVG(salary) AS avgSalary FROM Employee JOIN Company ON Employee.companyId = Company.id GROUP BY companyId) b WHERE Employee.salary > avgSalary AND companyId = cid;
+
++----+----------+-----+--------+-----------+---------+-----+---------+-------------+
+| id | name     | age | gender | companyId | salary  | cid | cname   | avgSalary   |
++----+----------+-----+--------+-----------+---------+-----+---------+-------------+
+|  0 | xiaoming |  20 | male   |         0 | 6000.00 |   0 | baidu   | 5000.000000 |
+|  1 | xiaohong |  19 | female |         1 | 7000.00 |   1 | alibaba | 6500.000000 |
++----+----------+-----+--------+-----------+---------+-----+---------+-------------+
