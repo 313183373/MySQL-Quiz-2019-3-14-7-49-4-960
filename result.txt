@@ -29,11 +29,12 @@ SELECT companyName, AVG(`salary`) AS avgSalary FROM `Employee` JOIN `Company` ON
 +-------------+-------------+
 
 Practice 4:
-SELECT * FROM Employee JOIN (SELECT companyId AS cid, companyName AS cname, AVG(salary) AS avgSalary FROM Employee JOIN Company ON Employee.companyId = Company.id GROUP BY companyId) b WHERE Employee.salary > avgSalary AND companyId = cid;
+SELECT * FROM Employee JOIN (SELECT companyId AS cid, companyName AS cname, AVG(salary) AS avgSalary FROM Employee JOIN Company ON Employee.companyId = Company.id GROUP BY companyId) b WHERE Employee.salary >= avgSalary AND companyId = cid;
 
 +----+----------+-----+--------+-----------+---------+-----+---------+-------------+
 | id | name     | age | gender | companyId | salary  | cid | cname   | avgSalary   |
 +----+----------+-----+--------+-----------+---------+-----+---------+-------------+
 |  0 | xiaoming |  20 | male   |         0 | 6000.00 |   0 | baidu   | 5000.000000 |
 |  1 | xiaohong |  19 | female |         1 | 7000.00 |   1 | alibaba | 6500.000000 |
+|  2 | xiaozhi  |  15 | male   |         2 | 8000.00 |   2 | tengxun | 8000.000000 |
 +----+----------+-----+--------+-----------+---------+-----+---------+-------------+
